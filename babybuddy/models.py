@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import os
 import zoneinfo
 
 from django.conf import settings
@@ -66,7 +67,7 @@ class Settings(models.Model):
         choices=sorted(
             tuple(zip(zoneinfo.available_timezones(), zoneinfo.available_timezones()))
         ),
-        default=timezone.get_default_timezone_name(),
+        default=os.environ.get("TZ", settings.TIME_ZONE),
         max_length=100,
         verbose_name=_("Timezone"),
     )
